@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+
+const data = ref<any>(null)
+
+onMounted(async () => {
+  const res = await axios.get('https://backend-render-cqna.onrender.com/helloboss')
+  data.value = res.data
+})
 </script>
 
 <template>
@@ -32,6 +40,11 @@ const count = ref(0)
     >.
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+
+  <div>
+    <h2>Backend Data</h2>
+    <pre>{{ data }}</pre>
+  </div>
 </template>
 
 <style scoped>
